@@ -95,7 +95,7 @@ public class PriceTest extends BaseTest {
         Assert.assertFalse(isDisplayed(inventoryPage.shoppingCartBadge));
         Assert.assertTrue(isDisplayed(inventoryPage.inventoryItemPrice));
 
-        inventoryPage.clickOnAddToCartTshirt();
+        inventoryPage.clickOnAddToCartBoltTshirt();
         Assert.assertTrue(isDisplayed(inventoryPage.removeBoltTshirt));
         Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartBadge));
 
