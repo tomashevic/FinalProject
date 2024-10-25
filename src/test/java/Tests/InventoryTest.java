@@ -22,17 +22,42 @@ public class InventoryTest extends BaseTest {
         inventoryPage = new InventoryPage();
         cartPage = new CartPage();
         hamburgerMenuPage = new HamburgerMenuPage();
-    }
-    @Test (priority = 10)
-    public void verifyThatResetAppStateRemovesAllItemsFromCart() throws InterruptedException {
-        String inventoryURL = "https://www.saucedemo.com/inventory.html";
-        String cartURL = "https://www.saucedemo.com/cart.html";
 
         String username = "standard_user";
         String password = "secret_sauce";
         loginPage.inputUserName(username);
         loginPage.inputPassword(password);
         loginPage.clickOnLoginButton();
+    }
+
+    @Test
+    public void verifyItemSorting() {
+        String inventoryURL = "https://www.saucedemo.com/inventory.html";
+
+
+        Assert.assertEquals(driver.getCurrentUrl(), inventoryURL);
+        Assert.assertEquals(inventoryPage.selectedSortOrder.getText(), "Name (A to Z)");
+        inventoryPage.clickOnSortButton();
+        inventoryPage.sortByReverseAlphabeticalOrder();
+        Assert.assertEquals(inventoryPage.selectedSortOrder.getText(), "Name (Z to A)");
+        inventoryPage.clickOnSortButton();
+        inventoryPage.sortByLowestPrice();
+        Assert.assertEquals(inventoryPage.selectedSortOrder.getText(), "Price (low to high)");
+        inventoryPage.clickOnSortButton();
+        inventoryPage.sortByHighestPrice();
+        Assert.assertEquals(inventoryPage.selectedSortOrder.getText(), "Price (high to low)");
+        inventoryPage.clickOnSortButton();
+        inventoryPage.sortByAlphabeticalOrder();
+        Assert.assertEquals(inventoryPage.selectedSortOrder.getText(), "Name (A to Z)");
+
+
+    }
+
+    @Test(priority = 10)
+    public void verifyThatResetAppStateRemovesAllItemsFromCart() throws InterruptedException {
+        String inventoryURL = "https://www.saucedemo.com/inventory.html";
+        String cartURL = "https://www.saucedemo.com/cart.html";
+
 
         Assert.assertEquals(driver.getCurrentUrl(), inventoryURL);
         Assert.assertFalse(isDisplayed(inventoryPage.shoppingCartBadge));
