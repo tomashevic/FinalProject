@@ -35,4 +35,5 @@ public class HamburgerMenuPage extends BaseTest {
         resetAppButton.click();
     }
 
+
 }
