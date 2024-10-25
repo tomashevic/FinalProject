@@ -23,6 +23,7 @@ public class PriceTest extends BaseTest {
         checkoutOverviewPage = new CheckoutOverviewPage();
 
     }
+
     @Test(priority = 10)
     public void verifyThatItemInventoryPriceAndItemCartPriceMatch() {
 

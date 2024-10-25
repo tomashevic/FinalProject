@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
 public class InventoryPage extends BaseTest {
 
     public InventoryPage() {
@@ -61,6 +62,24 @@ public class InventoryPage extends BaseTest {
     @FindBy(id = "item_3_img_link")
     public WebElement shirtRedImageLink;
 
+    @FindBy(className = "select_container")
+    public WebElement sortButton;
+
+    @FindBy(className = "active_option")
+    public WebElement selectedSortOrder;
+
+    @FindBy(css = "option[value='az']")
+    public WebElement alphabetOrder;
+
+    @FindBy(css = "option[value='za']")
+    public WebElement reverseAlphabetOrder;
+
+    @FindBy(css = "option[value='lohi']")
+    public WebElement lowToHigh;
+
+    @FindBy(css = "option[value='hilo']")
+    public WebElement highToLow;
+
 
     public void clickOnBurgerMenuButton() {
         burgerMenuButton.click();
@@ -114,6 +133,26 @@ public class InventoryPage extends BaseTest {
 
     public void clickOnShirtRedImageLink() {
         shirtRedImageLink.click();
+    }
+
+    public void clickOnSortButton() {
+        sortButton.click();
+    }
+
+    public void sortByAlphabeticalOrder() {
+        alphabetOrder.click();
+    }
+
+    public void sortByReverseAlphabeticalOrder() {
+        reverseAlphabetOrder.click();
+    }
+
+    public void sortByLowestPrice() {
+        lowToHigh.click();
+    }
+
+    public void sortByHighestPrice() {
+        highToLow.click();
     }
 
 

@@ -30,7 +30,7 @@ public class BaseTest {
 
         boolean displayed = false;
 
-        try{
+        try {
             displayed = element.isDisplayed();
         } catch (Exception e) {
 

@@ -36,7 +36,6 @@ public class CheckoutFormPage extends BaseTest {
     public WebElement displayedPostalCode;
 
 
-
     public void inputFirstName(String firstName) {
         firstNameField.clear();
         firstNameField.sendKeys(firstName);

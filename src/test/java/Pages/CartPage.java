@@ -69,7 +69,7 @@ public class CartPage extends BaseTest {
     }
 
     public void printAllCartItems() {
-        for(int i =0; i< cartList.size(); i++) {
+        for (int i = 0; i < cartList.size(); i++) {
             System.out.println(cartList.get(i).getText());
         }
     }

@@ -26,7 +26,6 @@ public class CheckoutOverviewPage extends BaseTest {
     @FindBy(id = "finish")
     public WebElement finishButton;
 
-
     public void clickOnFinishButton() {
         finishButton.click();
     }

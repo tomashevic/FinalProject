@@ -31,6 +31,7 @@ public class PurchaseTest extends BaseTest {
         loginPage.clickOnLoginButton();
 
     }
+
     @Test(priority = 10)
     public void verifyThatUserCanPurchaseAnItem() {
         String inventoryURL = "https://www.saucedemo.com/inventory.html";
@@ -84,6 +85,7 @@ public class PurchaseTest extends BaseTest {
         System.out.println(checkoutCompletePage.thankYouMessage.getText());
 
     }
+
     @Test(priority = 20)
     public void verifyThatUserCanFinalizePurchaseWithEmptyCart() throws InterruptedException {
         String inventoryURL = "https://www.saucedemo.com/inventory.html";
@@ -133,6 +135,7 @@ public class PurchaseTest extends BaseTest {
         System.out.println(checkoutCompletePage.thankYouMessage.getText());
 
     }
+
     @AfterMethod
     public void tearDown() {
         driver.quit();
