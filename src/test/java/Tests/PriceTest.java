@@ -50,7 +50,7 @@ public class PriceTest extends BaseTest {
         Assert.assertTrue(isDisplayed(inventoryPage.backpackInventoryPrice));
 
         inventoryPage.clickOnAddToCartBackpack();
-        Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartBadge));
+        Assert.assertEquals(inventoryPage.shoppingCartBadge.getText(), "1");
 
         inventoryPage.clickOnCartIcon();
         Assert.assertEquals(driver.getCurrentUrl(), cartURL);
