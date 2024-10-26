@@ -30,7 +30,7 @@ public class InventoryTest extends BaseTest {
         loginPage.clickOnLoginButton();
     }
 
-    @Test
+    @Test(priority = 10)
     public void verifyItemSorting() {
         String inventoryURL = "https://www.saucedemo.com/inventory.html";
 
@@ -53,7 +53,7 @@ public class InventoryTest extends BaseTest {
 
     }
 
-    @Test(priority = 10)
+    @Test(priority = 20)
     public void verifyThatResetAppStateRemovesAllItemsFromCart() throws InterruptedException {
         String inventoryURL = "https://www.saucedemo.com/inventory.html";
         String cartURL = "https://www.saucedemo.com/cart.html";
