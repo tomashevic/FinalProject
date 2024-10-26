@@ -154,6 +154,7 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), checkoutOverviewURL);
         checkoutOverviewPage.clickOnFinishButton();
         Assert.assertTrue(isDisplayed(checkoutOverviewPage.finishButton));
+        Assert.assertEquals(inventoryPage.shoppingCartBadge.getText(), "1");
         inventoryPage.clickOnCartIcon();
         Assert.assertEquals(driver.getCurrentUrl(), cartURL);
         Assert.assertTrue(isDisplayed(cartPage.cartItemName));
