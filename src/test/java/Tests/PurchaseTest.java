@@ -55,7 +55,7 @@ public class PurchaseTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), inventoryURL);
 
         inventoryPage.clickOnAddToCartBackpack();
-        Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartBadge));
+        Assert.assertEquals(inventoryPage.shoppingCartBadge.getText(), "1");
 
         inventoryPage.clickOnCartIcon();
         Assert.assertEquals(driver.getCurrentUrl(), cartURL);
