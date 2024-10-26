@@ -89,15 +89,6 @@ public class InventoryPage extends BaseTest {
         shoppingCartIcon.click();
     }
 
-    public boolean cartIsPresent() {
-        if (shoppingCartIcon.isDisplayed()) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
     public void clickOnAddToCartBackpack() {
         addToCartBackPack.click();
     }
