@@ -28,154 +28,86 @@ public class LoginTest extends BaseTest {
 
     @Test(priority = 10)
     public void verifyThatUserCanLoginUsingValidCredentials() throws InterruptedException {
-        String username = "standard_user";
-        String password = "secret_sauce";
-        String expectedURL = "https://www.saucedemo.com/inventory.html";
+        for (int i = 1; i <= excelReader.getLastRow("UserPass"); i++) {
 
+            String validUsername = excelReader.getStringData("UserPass", i, 0);
+            String validPassword = excelReader.getStringData("UserPass", 1, 1);
+            String expectedURL = "https://www.saucedemo.com/inventory.html";
 
-        loginPage.inputUserName(username);
-        loginPage.inputPassword(password);
-        loginPage.clickOnLoginButton();
-        Assert.assertEquals(driver.getCurrentUrl(), expectedURL);
-        Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartIcon));
-        inventoryPage.clickOnBurgerMenuButton();
-        Thread.sleep(1000);
-        hamburgerMenuPage.clickOnLogoutButton();
+            loginPage.inputUserName(validUsername);
+            loginPage.inputPassword(validPassword);
+            loginPage.clickOnLoginButton();
+            Assert.assertEquals(driver.getCurrentUrl(), expectedURL);
+            Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartIcon));
+            inventoryPage.clickOnBurgerMenuButton();
+            Thread.sleep(1000);
+            hamburgerMenuPage.clickOnLogoutButton();
+        }
 
     }
 
+
     @Test(priority = 20)
-    public void verifyThatUserCanLoginAsProblemUser() throws InterruptedException {
-        String username = "problem_user";
-        String password = "secret_sauce";
-        String expectedURL = "https://www.saucedemo.com/inventory.html";
+    public void verifyThatUserCannotLoginAsLockedOutUser() throws InterruptedException {
+        String lockedOUtUsername = "locked_out_user";
+        String validPassword = "secret_sauce";
+        String loginURL = driver.getCurrentUrl();
 
-
-        loginPage.inputUserName(username);
-        loginPage.inputPassword(password);
+        loginPage.inputUserName(lockedOUtUsername);
+        loginPage.inputPassword(validPassword);
         loginPage.clickOnLoginButton();
-        Assert.assertEquals(driver.getCurrentUrl(), expectedURL);
-        Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartIcon));
-        inventoryPage.clickOnBurgerMenuButton();
-        Thread.sleep(1000);
-        hamburgerMenuPage.clickOnLogoutButton();
+        Assert.assertEquals(driver.getCurrentUrl(), loginURL);
+        Assert.assertTrue(isDisplayed(loginPage.loginButton));
+        Assert.assertTrue(isDisplayed(loginPage.errorMessage));
+        Assert.assertFalse(isDisplayed(inventoryPage.burgerMenuButton));
+        System.out.println(loginPage.errorMessage.getText());
 
     }
 
     @Test(priority = 30)
-    public void verifyThatUserCanLoginAsGlitchUser() throws InterruptedException {
-        String username = "performance_glitch_user";
-        String password = "secret_sauce";
-        String expectedURL = "https://www.saucedemo.com/inventory.html";
+    public void verifyThatUserCannotLoginUsingInvalidUsername() throws InterruptedException {
+        for (int i = 1; i <= excelReader.getLastRow("UserPass"); i++) {
 
-        loginPage.inputUserName(username);
-        loginPage.inputPassword(password);
-        loginPage.clickOnLoginButton();
-        Assert.assertEquals(driver.getCurrentUrl(), expectedURL);
-        Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartIcon));
-        inventoryPage.clickOnBurgerMenuButton();
-        Thread.sleep(1000);
-        hamburgerMenuPage.clickOnLogoutButton();
+            String validUsername = excelReader.getStringData("UserPass", i, 2);
+            String invalidPassword = excelReader.getStringData("UserPass", 1, 1);
+            String loginURL = driver.getCurrentUrl();
+
+            loginPage.inputUserName(validUsername);
+            loginPage.inputPassword(invalidPassword);
+            Thread.sleep(2000);
+            loginPage.clickOnLoginButton();
+            Assert.assertEquals(driver.getCurrentUrl(), loginURL);
+            Assert.assertTrue(isDisplayed(loginPage.loginButton));
+            Assert.assertTrue(isDisplayed(loginPage.errorMessage));
+            Assert.assertFalse(isDisplayed(inventoryPage.burgerMenuButton));
+            System.out.println(loginPage.errorMessage.getText());
+        }
 
     }
 
     @Test(priority = 40)
-    public void verifyThatUserCanLoginAsErrorUser() throws InterruptedException {
-        String username = "error_user";
-        String password = "secret_sauce";
-        String expectedURL = "https://www.saucedemo.com/inventory.html";
+    public void verifyThatUserCannotLoginUsingInvalidPassword() throws InterruptedException {
+        for (int i = 1; i <= excelReader.getLastRow("UserPass"); i++) {
+
+            String validUsername = excelReader.getStringData("UserPass", 1, 0);
+            String invalidPassword = excelReader.getStringData("UserPass", i, 3);
+            String loginURL = driver.getCurrentUrl();
+
+            loginPage.inputUserName(validUsername);
+            loginPage.inputPassword(invalidPassword);
+            Thread.sleep(2000);
+            loginPage.clickOnLoginButton();
+            Assert.assertEquals(driver.getCurrentUrl(), loginURL);
+            Assert.assertTrue(isDisplayed(loginPage.loginButton));
+            Assert.assertTrue(isDisplayed(loginPage.errorMessage));
+            Assert.assertFalse(isDisplayed(inventoryPage.burgerMenuButton));
+            System.out.println(loginPage.errorMessage.getText());
 
 
-        loginPage.inputUserName(username);
-        loginPage.inputPassword(password);
-        loginPage.clickOnLoginButton();
-        Assert.assertEquals(driver.getCurrentUrl(), expectedURL);
-        Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartIcon));
-        inventoryPage.clickOnBurgerMenuButton();
-        Thread.sleep(1000);
-        hamburgerMenuPage.clickOnLogoutButton();
-
+        }
     }
 
     @Test(priority = 50)
-    public void verifyThatUserCanLoginAsVisualUser() throws InterruptedException {
-        String username = "visual_user";
-        String password = "secret_sauce";
-        String loginURL = driver.getCurrentUrl();
-        String expectedURL = "https://www.saucedemo.com/inventory.html";
-
-
-        loginPage.inputUserName(username);
-        loginPage.inputPassword(password);
-        loginPage.clickOnLoginButton();
-        Assert.assertNotEquals(driver.getCurrentUrl(), loginURL);
-        Assert.assertEquals(driver.getCurrentUrl(), expectedURL);
-        Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartIcon));
-        inventoryPage.clickOnBurgerMenuButton();
-        Thread.sleep(1000);
-        hamburgerMenuPage.clickOnLogoutButton();
-
-    }
-
-    @Test(priority = 60)
-    public void verifyThatUserCannotLoginAsLockedOutUser() {
-        String username = "locked_out_user";
-        String password = "secret_sauce";
-        String loginURL = driver.getCurrentUrl();
-        String inventoryURL = "https://www.saucedemo.com/inventory.html";
-
-
-        loginPage.inputUserName(username);
-        loginPage.inputPassword(password);
-        loginPage.clickOnLoginButton();
-        Assert.assertNotEquals(driver.getCurrentUrl(), inventoryURL);
-        Assert.assertEquals(driver.getCurrentUrl(), loginURL);
-        Assert.assertTrue(isDisplayed(loginPage.loginButton));
-        Assert.assertTrue(isDisplayed(loginPage.errorMessage));
-        Assert.assertFalse(isDisplayed(inventoryPage.burgerMenuButton));
-        System.out.println(loginPage.errorMessage.getText());
-
-    }
-
-    @Test(priority = 70)
-    public void verifyThatUserCannotLoginUsingInvalidUsername() {
-        String username = "nonstandard_user";
-        String password = "secret_sauce";
-        String loginURL = driver.getCurrentUrl();
-        String inventoryURL = "https://www.saucedemo.com/inventory.html";
-
-        loginPage.inputUserName(username);
-        loginPage.inputPassword(password);
-        loginPage.clickOnLoginButton();
-        Assert.assertNotEquals(driver.getCurrentUrl(), inventoryURL);
-        Assert.assertEquals(driver.getCurrentUrl(), loginURL);
-        Assert.assertTrue(isDisplayed(loginPage.loginButton));
-        Assert.assertTrue(isDisplayed(loginPage.errorMessage));
-        Assert.assertFalse(isDisplayed(inventoryPage.burgerMenuButton));
-        System.out.println(loginPage.errorMessage.getText());
-
-    }
-
-    @Test(priority = 80)
-    public void verifyThatUserCannotLoginUsingInvalidPassword() {
-        String username = "standard_user";
-        String password = "nonSecret_sauce";
-        String loginURL = driver.getCurrentUrl();
-        String inventoryURL = "https://www.saucedemo.com/inventory.html";
-
-        loginPage.inputUserName(username);
-        loginPage.inputPassword(password);
-        loginPage.clickOnLoginButton();
-        Assert.assertNotEquals(driver.getCurrentUrl(), inventoryURL);
-        Assert.assertEquals(driver.getCurrentUrl(), loginURL);
-        Assert.assertTrue(isDisplayed(loginPage.loginButton));
-        Assert.assertTrue(isDisplayed(loginPage.errorMessage));
-        Assert.assertFalse(isDisplayed(inventoryPage.burgerMenuButton));
-        System.out.println(loginPage.errorMessage.getText());
-
-    }
-
-    @Test(priority = 90)
     public void verifyThatUserCannotLoginWithoutUsername() {
         String password = "secret_sauce";
         String loginURL = driver.getCurrentUrl();
@@ -192,15 +124,13 @@ public class LoginTest extends BaseTest {
 
     }
 
-    @Test(priority = 91)
+    @Test(priority = 60)
     public void verifyThatUserCannotLoginWithoutPassword() {
         String username = "standard_user";
         String loginURL = driver.getCurrentUrl();
-        String inventoryURL = "https://www.saucedemo.com/inventory.html";
 
         loginPage.inputUserName(username);
         loginPage.clickOnLoginButton();
-        Assert.assertNotEquals(driver.getCurrentUrl(), inventoryURL);
         Assert.assertEquals(driver.getCurrentUrl(), loginURL);
         Assert.assertTrue(isDisplayed(loginPage.loginButton));
         Assert.assertTrue(isDisplayed(loginPage.errorMessage));
@@ -209,14 +139,11 @@ public class LoginTest extends BaseTest {
 
     }
 
-    @Test(priority = 92)
+    @Test(priority = 70)
     public void verifyThatUserCannotLoginWithoutUsernameAndPassword() {
-
         String loginURL = driver.getCurrentUrl();
-        String inventoryURL = "https://www.saucedemo.com/inventory.html";
 
         loginPage.clickOnLoginButton();
-        Assert.assertNotEquals(driver.getCurrentUrl(), inventoryURL);
         Assert.assertEquals(driver.getCurrentUrl(), loginURL);
         Assert.assertTrue(isDisplayed(loginPage.loginButton));
         Assert.assertTrue(isDisplayed(loginPage.errorMessage));
