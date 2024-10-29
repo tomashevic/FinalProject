@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeClass;
 
+import java.io.IOException;
+
 public class BaseTest {
 
 
@@ -18,11 +20,13 @@ public class BaseTest {
     public CheckoutCompletePage checkoutCompletePage;
     public ItemPage itemPage;
     public HamburgerMenuPage hamburgerMenuPage;
+    public ExcelReader excelReader;
 
     @BeforeClass
-    public void setUp() {
+    public void setUp() throws IOException {
         WebDriverManager.chromedriver().setup();
 
+        excelReader = new ExcelReader("FinalTestData.xlsx");
 
     }
 
