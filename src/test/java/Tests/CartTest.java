@@ -50,10 +50,10 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), inventoryURL);
 
         inventoryPage.clickOnAddToCartBikeLight();
-        Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartBadge));
+        Assert.assertEquals(inventoryPage.shoppingCartBadge.getText(), "1");
 
         inventoryPage.clickOnRemoveBikeLight();
-        Assert.assertTrue(isDisplayed(inventoryPage.removeBikeLight));
+        Assert.assertEquals(inventoryPage.shoppingCartBadge.getText(), "1");
 
         inventoryPage.clickOnBikeLightImage();
         Assert.assertEquals(driver.getCurrentUrl(), itemURL);
@@ -61,18 +61,18 @@ public class CartTest extends BaseTest {
 
         itemPage.clickOnRemoveButton();
         Assert.assertTrue(isDisplayed(itemPage.removeButton));
-        Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartBadge));
+        Assert.assertEquals(inventoryPage.shoppingCartBadge.getText(), "1");
 
         inventoryPage.clickOnCartIcon();
         Assert.assertEquals(driver.getCurrentUrl(), cartURL);
         Assert.assertTrue(isDisplayed(cartPage.cartItemName));
         Assert.assertTrue(isDisplayed(cartPage.cartItemPrice));
-        System.out.println(cartPage.cartItemName.getText());
-        System.out.println(cartPage.cartItemPrice.getText());
+        Assert.assertEquals(cartPage.itemOneQuantity.getText(), "1");
 
         cartPage.clickOnRemoveButton();
         Assert.assertFalse(isDisplayed(inventoryPage.shoppingCartBadge));
         Assert.assertFalse(isDisplayed(cartPage.cartItemName));
+        Assert.assertFalse(isDisplayed(cartPage.itemOneQuantity));
 
     }
 
