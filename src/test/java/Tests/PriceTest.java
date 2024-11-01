@@ -91,8 +91,8 @@ public class PriceTest extends BaseTest {
 
         String inventoryURL = "https://www.saucedemo.com/inventory.html";
         String cartURL = "https://www.saucedemo.com/cart.html";
-        String itemInventoryPrice = "Price of a item on inventory page: ";
-        String itemCartPrice = "Price of a item on cart page: ";
+        String itemInventoryPrice = "Item price on inventory page: ";
+        String itemCartPrice = "Item price on cart page: ";
 
         Assert.assertEquals(driver.getCurrentUrl(), inventoryURL);
 
