@@ -87,7 +87,7 @@ public class PurchaseTest extends BaseTest {
     }
 
     @Test(priority = 20)
-    public void verifyThatUserCanFinalizePurchaseWithEmptyCart() throws InterruptedException {
+    public void verifyThatUserCanFinalizePurchaseWithEmptyCart() {
         String inventoryURL = "https://www.saucedemo.com/inventory.html";
         String cartURL = "https://www.saucedemo.com/cart.html";
         String checkoutFormURL = "https://www.saucedemo.com/checkout-step-one.html";
@@ -100,8 +100,6 @@ public class PurchaseTest extends BaseTest {
 
         Assert.assertEquals(driver.getCurrentUrl(), inventoryURL);
         inventoryPage.clickOnBurgerMenuButton();
-        Thread.sleep(500);
-
         hamburgerMenuPage.clickOnResetAppButton();
         Assert.assertFalse(isDisplayed(inventoryPage.shoppingCartBadge));
 
