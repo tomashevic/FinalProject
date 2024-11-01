@@ -38,8 +38,9 @@ public class HamburgerMenuPage extends BaseTest {
     }
 
     public void clickOnResetAppButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOf(resetAppButton));
         resetAppButton.click();
     }
-
 
 }

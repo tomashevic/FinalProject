@@ -55,7 +55,7 @@ public class InventoryTest extends BaseTest {
     }
 
     @Test(priority = 20)
-    public void verifyThatResetAppStateRemovesAllItemsFromCart() throws InterruptedException {
+    public void verifyThatResetAppStateRemovesAllItemsFromCart() {
         String inventoryURL = "https://www.saucedemo.com/inventory.html";
         String cartURL = "https://www.saucedemo.com/cart.html";
 
@@ -87,7 +87,6 @@ public class InventoryTest extends BaseTest {
         Assert.assertEquals(cartPage.cartItemThreePrice.getText(), "$15.99");
         cartPage.printAllCartItems();
         inventoryPage.clickOnBurgerMenuButton();
-        Thread.sleep(1000);
         hamburgerMenuPage.clickOnResetAppButton();
         driver.navigate().refresh();
 
