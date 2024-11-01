@@ -41,13 +41,14 @@ public class PriceTest extends BaseTest {
         String cartURL = "https://www.saucedemo.com/cart.html";
         String checkoutFormURL = "https://www.saucedemo.com/checkout-step-one.html";
         String checkoutOverviewURL = "https://www.saucedemo.com/checkout-step-two.html";
-        String itemInventoryPrice = "Price of a item on inventory page: ";
-        String priceWithoutTax = "Without tax ";
+        String itemInventoryPrice = "Item price on inventory page ";
+        String priceWithoutTax = "Item price on checkout page ";
 
         Assert.assertEquals(driver.getCurrentUrl(), inventoryURL);
 
         Assert.assertFalse(isDisplayed(inventoryPage.shoppingCartBadge));
         Assert.assertTrue(isDisplayed(inventoryPage.backpackInventoryPrice));
+        String inventoryPrice = "Item total: " + inventoryPage.backpackInventoryPrice.getText();
 
         inventoryPage.clickOnAddToCartBackpack();
         Assert.assertEquals(inventoryPage.shoppingCartBadge.getText(), "1");
@@ -70,8 +71,10 @@ public class PriceTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), checkoutOverviewURL);
         Assert.assertTrue(isDisplayed(checkoutOverviewPage.cartItem));
         Assert.assertTrue(isDisplayed(checkoutOverviewPage.cartQuantityField));
-        System.out.println(itemInventoryPrice + inventoryPage.backpackInventoryPrice.getText());
-        System.out.println(priceWithoutTax + checkoutOverviewPage.itemTotalPrice.getText());
+        String checkoutTotalPrice = checkoutOverviewPage.itemTotalPrice.getText();
+        Assert.assertEquals(inventoryPrice, checkoutTotalPrice);
+        System.out.println(itemInventoryPrice + inventoryPrice);
+        System.out.println(priceWithoutTax + checkoutTotalPrice);
 
 
     }
@@ -100,14 +103,18 @@ public class PriceTest extends BaseTest {
         Assert.assertTrue(isDisplayed(inventoryPage.removeBoltTshirt));
         Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartBadge));
 
-        System.out.println(itemInventoryPrice + inventoryPage.inventoryItemPrice.getText());
+        String inventoryPrice = inventoryPage.inventoryItemPrice.getText();
+        System.out.println(itemInventoryPrice + inventoryPrice);
 
         inventoryPage.clickOnCartIcon();
         Assert.assertNotEquals(driver.getCurrentUrl(), inventoryURL);
         Assert.assertEquals(driver.getCurrentUrl(), cartURL);
 
+        String cartPrice = cartPage.cartItemPrice.getText();
+
         Assert.assertEquals(cartPage.cartItemName.getText(), inventoryPage.inventoryItemName.getText());
-        System.out.println(itemCartPrice + cartPage.cartItemPrice.getText());
+        Assert.assertNotEquals(inventoryPrice, cartPrice);
+        System.out.println(itemCartPrice + cartPrice);
 
     }
 
