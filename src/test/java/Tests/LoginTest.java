@@ -27,7 +27,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(priority = 10)
-    public void verifyThatUserCanLoginUsingValidCredentials() throws InterruptedException {
+    public void verifyThatUserCanLoginUsingValidCredentials() {
         for (int i = 1; i <= excelReader.getLastRow("UserPass"); i++) {
 
             String validUsername = excelReader.getStringData("UserPass", i, 0);
@@ -40,12 +40,10 @@ public class LoginTest extends BaseTest {
             Assert.assertEquals(driver.getCurrentUrl(), expectedURL);
             Assert.assertTrue(isDisplayed(inventoryPage.shoppingCartIcon));
             inventoryPage.clickOnBurgerMenuButton();
-            Thread.sleep(1000);
             hamburgerMenuPage.clickOnLogoutButton();
         }
 
     }
-
 
     @Test(priority = 20)
     public void verifyThatUserCannotLoginAsLockedOutUser() {
@@ -110,6 +108,7 @@ public class LoginTest extends BaseTest {
         String password = "secret_sauce";
         String loginURL = driver.getCurrentUrl();
 
+        loginPage.usernameField.clear();
         loginPage.inputPassword(password);
         loginPage.clickOnLoginButton();
         Assert.assertEquals(driver.getCurrentUrl(), loginURL);
@@ -126,6 +125,7 @@ public class LoginTest extends BaseTest {
         String loginURL = driver.getCurrentUrl();
 
         loginPage.inputUserName(username);
+        loginPage.passwordField.clear();
         loginPage.clickOnLoginButton();
         Assert.assertEquals(driver.getCurrentUrl(), loginURL);
         Assert.assertTrue(isDisplayed(loginPage.loginButton));
@@ -139,6 +139,8 @@ public class LoginTest extends BaseTest {
     public void verifyThatUserCannotLoginWithoutUsernameAndPassword() {
         String loginURL = driver.getCurrentUrl();
 
+        loginPage.usernameField.clear();
+        loginPage.passwordField.clear();
         loginPage.clickOnLoginButton();
         Assert.assertEquals(driver.getCurrentUrl(), loginURL);
         Assert.assertTrue(isDisplayed(loginPage.loginButton));

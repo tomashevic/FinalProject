@@ -4,6 +4,10 @@ import Base.BaseTest;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 
 public class HamburgerMenuPage extends BaseTest {
@@ -28,6 +32,8 @@ public class HamburgerMenuPage extends BaseTest {
     }
 
     public void clickOnLogoutButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOf(logOutButton));
         logOutButton.click();
     }
 
